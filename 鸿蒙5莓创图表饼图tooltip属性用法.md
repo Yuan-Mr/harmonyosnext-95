@@ -1,66 +1,70 @@
-大家好，欢迎回来鸿蒙5莓创图表组件的专场，我们这一期来讲解组合图组件中tooltip属性的完整用法。这个功能模块是数据可视化交互的核心配置，掌握它的细节能让图表信息展示更专业。下面我们从底层属性开始逐层拆解：
+### Hello and welcome back to our special session on HarmonyOS 5 Berry Creative chart components! In this episode, we'll explore the complete usage of the `tooltip` property in combined chart components. This functional module is the core configuration for data visualization interaction—mastering its details will make chart information display more professional. Let's break it down layer by layer starting from the underlying properties:  
 
-* * *
 
-### 一、基础开关属性 show
+### 一、Basic Toggle Property: `show`  
+**Function**: Control whether the floating tooltip is displayed.  
+**Type**: Boolean  
+**Default**: `true`  
+**Scenario**: Temporarily disable data interaction tooltips.  
 
-作用：控制是否显示浮动提示层 类型：布尔值（Boolean） 默认值：true 场景：需要临时关闭数据交互提示时使用
-
-```
-// 关闭提示层示例
+```json
+// Example: Disable tooltip
 tooltip: {
   show: false
 }
-```
+```  
 
-* * *
 
-### 二、布局属性 padding
+### 二、Layout Property: `padding`  
+**Function**: Set the spacing between tooltip content and its border.  
+**Type**: Number  
+**Default**: `10`  
+**Scenario**: Increase padding for long tooltip text.  
 
-作用：设置提示框内容与边框的间距 类型：数值（Number） 默认值：10 场景：当提示文字过长需要增加边距时
-
-```
+```json
 tooltip: {
-  padding: 15  // 增大内边距
+  padding: 15  // Increase inner padding
 }
-```
+```  
 
-* * *
 
-### 三、背景样式组
+### 三、Background Style Group  
+#### 3.1 `backgroundColor`  
+**Function**: Set the tooltip background color.  
+**Type**: Color string  
+**Default**: `'rgba(0,0,0,0.7)'`  
+**Options**: Supports HEX, RGBA, HSL, etc.  
 
-#### 3.1 backgroundColor
+```json
+backgroundColor: '#2C3E50'  // Dark blue background
+```  
 
-作用：设置提示层背景颜色 类型：颜色字符串（String） 默认值：'rgba(0,0,0,0.7)' 可选值：支持HEX/RGBA/HSL等格式
+#### 3.2 `borderWidth` & `borderColor`  
+**Function**: Configure border thickness and color.  
+**Type**: Number + Color string  
+**Default**: `0` / `'rgba(0,0,0,0.7)'`  
+**Scenario**: Enhance tooltip borders for clarity.  
 
-```
-backgroundColor: '#2C3E50'  // 深蓝色背景
-```
-
-#### 3.2 borderWidth & borderColor
-
-作用：边框粗细和颜色配置 类型：数值 + 颜色字符串 默认值：0 / 'rgba(0,0,0,0.7)' 场景：需要强化提示框边界时
-
-```
+```json
 borderWidth: 2,
-borderColor: '#E74C3C'  // 红色边框
-```
+borderColor: '#E74C3C'  // Red border
+```  
 
-* * *
 
-### 四、指示器配置 axisPointer
+### 四、Indicator Configuration: `axisPointer`  
+#### 4.1 Main Type: `type`  
+**Function**: Select indicator type.  
+**Type**: String  
+**Options**: `'line'` (line indicator) or `'shadow'` (background block)  
+**Default**: `'line'`  
+**Scenario**: Use `line` for line charts, `shadow` for bar charts.  
 
-#### 4.1 主类型 type
+#### 4.2 Line Style: `lineStyle`  
+- `width`: Line thickness (default `1px`).  
+- `type`: Line style (`'solid'` / `'dashed'`).  
+- `color`: Line color.  
 
-作用：选择指示线类型 类型：字符串（String） 可选值：'line'（直线）或 'shadow'（背景块） 默认：'line' 场景：折线图适合用line，柱状图适合用shadow
-
-#### 4.2 线样式 lineStyle
-
--   width：线宽（默认1px）
--   type：线型（'solid'实线 / 'dashed'虚线）
--   color：线条颜色
-
-```
+```json
 axisPointer: {
   type: 'line',
   lineStyle: {
@@ -69,17 +73,15 @@ axisPointer: {
     color: '#3498DB'
   }
 }
-```
+```  
 
-#### 4.3 阴影样式 shadowStyle
+#### 4.3 Shadow Style: `shadowStyle`  
+**Function**: Background configuration when `type` is `'shadow'`.  
+- `color`: Shadow color.  
+- `borderWidth`: Shadow border thickness.  
+- `borderColor`: Shadow border color.  
 
-作用：当type为shadow时的背景配置
-
--   color：阴影颜色
--   borderWidth：阴影边框
--   borderColor：阴影边色
-
-```
+```json
 axisPointer: {
   type: 'shadow',
   shadowStyle: {
@@ -87,51 +89,49 @@ axisPointer: {
     borderWidth: 1
   }
 }
-```
+```  
 
-* * *
 
-### 五、文字样式 textStyle
+### 五、Text Style: `textStyle`  
+**Function**: Control text style within the tooltip.  
+**Sub-properties**:  
+- `color`: Text color (default `#fff`).  
+- `fontWeight`: Font weight (`normal` / `bold`).  
+- `fontFamily`: Font family.  
+- `fontSize`: Font size.  
 
-作用：控制提示框内文字样式 子属性：
-
--   color：文字颜色（默认#fff）
--   fontWeight：字重（normal/bold）
--   fontFamily：字体类型
--   fontSize：字号
-
-```
+```json
 textStyle: {
-  color: '#F1C40F',  // 金色文字
+  color: '#F1C40F',  // Golden text
   fontSize: 16,
   fontFamily: 'Microsoft Yahei'
 }
-```
+```  
 
-* * *
 
-### 六、动画效果组
+### 六、Animation Effect Group  
+#### 6.1 `animationCurve`  
+**Function**: Define the animation easing for tooltip appearance/disappearance.  
+**Type**: String  
+**Default**: `'easeOutCubic'`  
+**Options**: Standard easing curves like `'linear'`, `'easeInOut'`.  
 
-#### 6.1 animationCurve
+#### 6.2 `animationFrame`  
+**Function**: Animation duration (milliseconds).  
+**Type**: Number  
+**Default**: `0` (no animation)  
+**Scenario**: Smooth transition effects.  
 
-作用：定义提示框出现/消失的动画曲线 类型：字符串 默认：'easeOutCubic' 可选值：'linear'、'easeInOut'等标准动画曲线
-
-#### 6.2 animationFrame
-
-作用：动画持续时间（单位：毫秒） 类型：数值 默认：0（无动画） 场景：需要丝滑过渡效果时
-
-```
+```json
 animationCurve: 'easeInOut',
-animationFrame: 300  // 300ms动画
-```
+animationFrame: 300  // 300ms animation
+```  
 
-* * *
 
-### 七、综合实战案例
+### 七、Comprehensive Practical Case  
+Suppose we're developing a financial data dashboard:  
 
-假设我们要开发一个金融数据看板：
-
-```
+```json
 tooltip: {
   show: true,
   padding: 12,
@@ -152,15 +152,14 @@ tooltip: {
   animationCurve: 'easeOutBack',
   animationFrame: 200
 }
-```
+```  
 
-这个配置实现了：
+**This configuration achieves**:  
+1. Dark semi-transparent background with gray border  
+2. Shadow indicator to reduce background interference  
+3. Bold text for improved readability  
+4. Elastic entry animation  
 
-1.  深色半透明背景配合灰色边框
-1.  阴影指示器弱化背景干扰
-1.  加粗文字提升可读性
-1.  带弹性的入场动画
 
-* * *
-
-好，这期讲到这里就结束了，希望大家通过这篇深度解析，能像搭积木一样自由组合tooltip的各种属性。在实际项目中多尝试不同配置的组合效果，让数据提示层既保持专业度又不失灵动感。我们下期再见！
+### Conclusion  
+This wraps up our in-depth guide to the `tooltip` property! Use these attributes like building blocks to freely combine effects. Experiment with different configurations in real projects to make data tooltips both professional and dynamic. See you next time! 🚀
